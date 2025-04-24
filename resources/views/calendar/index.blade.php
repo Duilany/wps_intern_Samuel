@@ -2,30 +2,37 @@
 
 @section('styles')
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         #calendar {
             max-width: 100%;
             margin: 0 auto;
+        }
+
+        .fc-event-title {
+            font-weight: 600;
+        }
+
+        .fc .fc-toolbar-title {
+            font-size: 1.5rem;
         }
     </style>
 @endsection
 
 @section('content')
 <div class="container py-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3 class="fw-bold text-primary">📅 Dashboard Kalender Log Harian</h3>
-        <span class="badge bg-secondary">Direktur Utama</span>
-    </div>
-
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
         </div>
     @endif
 
-    <div class="card shadow-sm">
-        <div class="card-body">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white">
+            <i class="bi bi-calendar-week me-1"></i> Kalender Aktivitas Pegawai
+        </div>
+        <div class="card-body bg-light">
             <div id="calendar"></div>
         </div>
     </div>
@@ -47,7 +54,10 @@
                     right: 'dayGridMonth,listMonth'
                 },
                 eventDisplay: 'block',
-                eventColor: '#0d6efd'
+                eventColor: '#0d6efd',
+                eventClick: function(info) {
+                    window.location.href = info.event.url;
+                }
             });
             calendar.render();
         });

@@ -15,36 +15,39 @@ use Illuminate\View\View;
 class RegisteredUserController extends Controller
 {
     /**
-     * Display the registration view.
+     * Tampilkan halaman registrasi khusus staf.
      */
     public function create(): View
     {
-        return view('auth.register');
+        $roles = ['staf']; // Hanya staf
+        $managers = User::where('role', 'manager')->get(); // Ambil semua manager untuk dipilih staf
+        return view('auth.register', compact('roles', 'managers'));
     }
 
     /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
+     * Proses registrasi.
      */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
+            'role' => ['required', 'in:staf'], // Validasi hanya staf
+            'manager_id' => ['required', 'exists:users,id'], // Harus pilih manager
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role' => 'staf',
+            'manager_id' => $request->manager_id,
             'password' => Hash::make($request->password),
         ]);
 
         event(new Registered($user));
-
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect()->route('logs.index');
     }
 }

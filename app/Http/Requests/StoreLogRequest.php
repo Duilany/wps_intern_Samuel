@@ -13,7 +13,7 @@ class StoreLogRequest extends FormRequest
     public function authorize(): bool
     {
         // Izinkan hanya staf yang sudah login untuk membuat/memperbarui log
-        return Auth::check() && in_array(Auth::user()->role, ['staff_operasional', 'staff_keuangan']);
+        return Auth::check() && in_array(Auth::user()->role, ['staf', 'staff_operasional', 'staff_keuangan']);
     }
 
     /**

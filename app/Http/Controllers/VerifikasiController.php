@@ -8,15 +8,24 @@ use Illuminate\Support\Facades\Auth;
 
 class VerifikasiController extends Controller
 {
-    public function index(Request $request)
-    {
-        $bawahanIds = Auth::user()->bawahan->pluck('id');
-        $logs = Log::whereIn('user_id', $bawahanIds)
-            ->latest()
-            ->paginate(10);
+  public function index(Request $request)
+{
+    $query = Log::with('user', 'verifier');
 
-        return view('verifikasi.index', compact('logs'));
+    if ($request->has('log_id')) {
+        // Jika ada log_id di query parameter, tampilkan hanya log tersebut
+        $query->where('id', $request->log_id);
+    } else {
+        // Tampilkan semua log dari bawahan user yang login
+        $bawahanIds = Auth::user()->bawahan->pluck('id');
+        $query->whereIn('user_id', $bawahanIds);
     }
+
+    $logs = $query->latest()->paginate(10);
+
+    return view('verifikasi.index', compact('logs'));
+}
+
 
     public function verify(Request $request, Log $log)
     {

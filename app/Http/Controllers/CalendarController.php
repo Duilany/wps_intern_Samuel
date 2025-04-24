@@ -14,12 +14,12 @@ class CalendarController extends Controller
         $start = \Carbon\Carbon::parse($month)->startOfMonth();
         $end = $start->copy()->endOfMonth();
 
-        $bawahanIds = Auth::user()->bawahan->pluck('id');
+        $bawahanIds = Auth::user()->allBawahanIds(); // ambil semua bawahan (manajer & staff)
         $logs = Log::whereIn('user_id', $bawahanIds)
             ->whereBetween('tanggal', [$start, $end])
             ->get();
 
-        return view('dashboard', compact('logs', 'month'));
+       return view('calendar.index', compact('logs', 'month'));
     }
 
     public function data(Request $request)
@@ -27,7 +27,7 @@ class CalendarController extends Controller
         $start = $request->query('start');
         $end = $request->query('end');
 
-        $bawahanIds = Auth::user()->bawahan->pluck('id');
+        $bawahanIds = Auth::user()->allBawahanIds(); // ambil semua bawahan (manajer & staff)
         $logs = Log::whereIn('user_id', $bawahanIds)
             ->whereBetween('tanggal', [$start, $end])
             ->get();

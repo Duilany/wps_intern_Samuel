@@ -50,4 +50,21 @@ class User extends Authenticatable
     {
         return in_array($this->role, ['direktur', 'manager_operasional', 'manager_keuangan']);
     }
+
+    public function allBawahanIds()
+{
+    $ids = collect();
+
+    foreach ($this->bawahan as $bawahan) {
+        $ids->push($bawahan->id);
+
+        // tambahkan bawahan dari bawahan
+        foreach ($bawahan->bawahan as $sub) {
+            $ids->push($sub->id);
+        }
+    }
+
+    return $ids;
+}
+
 }

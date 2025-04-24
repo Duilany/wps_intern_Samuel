@@ -40,7 +40,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         if (auth()->user()->role === 'direktur') {
             return redirect()->route('calendar.index');
-        } elseif (auth()->user()->role === 'manager_operasional' || auth()->user()->role === 'manager_keuangan') {
+        } elseif (auth()->user()->role === 'manager') {
             return redirect()->route('verifikasi.index');
         } else {
             return redirect()->route('logs.index');

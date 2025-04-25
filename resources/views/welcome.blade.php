@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Daily Log System</title>
+    <title>Sistem Log Harian</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -109,21 +109,21 @@
             <circle cx="12" cy="12" r="10" stroke="#1a3c6d" stroke-width="2"/>
             <path d="M12 6v6l4 2" stroke="#1a3c6d" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <span class="ms-2 text-dark fw-bold">Daily Log System</span>
+        <span class="ms-2 text-dark fw-bold">Sistem Log Harian</span>
     </div>
 
-    <!-- Main Content -->
+    <!-- Konten Utama -->
     <div class="content">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 welcome-text">
-                    <h1>WELCOME BACK!</h1>
-                    <p>Access your daily logs to continue</p>
+                    <h1>SELAMAT DATANG KEMBALI!</h1>
+                    <p>Akses catatan harian Anda untuk melanjutkan</p>
                 </div>
                 <div class="col-lg-6 text-center">
-                    <a href="{{ route('login') }}" class="btn btn-signin mb-3">SIGN IN</a>
+                    <a href="{{ route('login') }}" class="btn btn-signin mb-3">MASUK</a>
                     @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="btn btn-register">REGISTER</a>
+                        <a href="{{ route('register') }}" class="btn btn-register">DAFTAR</a>
                     @endif
                 </div>
             </div>
@@ -132,7 +132,7 @@
 
     <!-- Footer -->
     <div class="footer">
-        <p>© 2025 Daily Log System. All rights reserved.</p>
+        <p>© 2025 Sistem Log Harian.</p>
     </div>
 
     <!-- Bootstrap JS -->

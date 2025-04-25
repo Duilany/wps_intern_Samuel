@@ -98,7 +98,7 @@
             <circle cx="12" cy="12" r="10" stroke="#1a3c6d" stroke-width="2"/>
             <path d="M12 6v6l4 2" stroke="#1a3c6d" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <span class="ms-2 text-dark fw-bold">Daily Log System</span>
+        <span class="ms-2 text-dark fw-bold">Sistem Log Harian</span>
     </div>
 
     <!-- Main Content -->
@@ -106,12 +106,12 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 welcome-text">
-                    <h1>WELCOME BACK!</h1>
-                    <p>Enter your ID & Password to continue</p>
+                    <h1>SELAMAT DATANG KEMBALI!</h1>
+                    <p>Masukkan ID dan Kata Sandi Anda untuk melanjutkan</p>
                 </div>
                 <div class="col-lg-6">
                     <div class="login-form">
-                        <h2 class="text-center mb-4">SIGN IN TO ACCESS THE PORTAL</h2>
+                        <h2 class="text-center mb-4">MASUK UNTUK MENGAKSES PORTAL</h2>
                         
                         <!-- Session Status -->
                         @if (session('status'))
@@ -127,7 +127,7 @@
                             <div class="mb-3">
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-person"></i></span>
-                                    <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" placeholder="Enter Username" required autofocus autocomplete="username">
+                                    <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" placeholder="Masukkan Nama Pengguna" required autofocus autocomplete="username">
                                 </div>
                                 @if ($errors->has('email'))
                                     <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $errors->first('email') }}</p>
@@ -138,7 +138,7 @@
                             <div class="mb-3">
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                    <input id="password" class="form-control" type="password" name="password" placeholder="Enter Password" required autocomplete="current-password">
+                                    <input id="password" class="form-control" type="password" name="password" placeholder="Masukkan Kata Sandi" required autocomplete="current-password">
                                 </div>
                                 @if ($errors->has('password'))
                                     <p class="mt-2 text-sm text-red-600 dark:text-red-400">{{ $errors->first('password') }}</p>
@@ -149,19 +149,19 @@
                             <div class="mb-3">
                                 <label for="remember_me" class="inline-flex items-center">
                                     <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                                    <span class="ms-2 text-sm text-gray-600">{{ __('Ingat Saya') }}</span>
                                 </label>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 @if (Route::has('password.request'))
                                     <a class="text-sm text-primary hover:underline" href="{{ route('password.request') }}">
-                                        {{ __('Forgot your password?') }}
+                                        {{ __('Lupa Kata Sandi?') }}
                                     </a>
                                 @endif
 
                                 <button type="submit" class="btn btn-login">
-                                    {{ __('Log in') }}
+                                    {{ __('Masuk') }}
                                 </button>
                             </div>
                         </form>
@@ -173,6 +173,6 @@
 
     <!-- Footer -->
     <div class="footer">
-        <p>© 2025 Daily Log System. All rights reserved.</p>
+        <p>© 2025 Sistem Log Harian.</p>
     </div>
 @endsection

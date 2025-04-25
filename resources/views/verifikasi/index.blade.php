@@ -56,15 +56,18 @@
                             <td>{{ $log->verifier ? $log->verifier->name : '-' }}</td>
                             <td>
                                 @if ($log->status === 'pending')
-                                    <form action="{{ route('verifikasi.verify', $log) }}" method="POST" class="d-flex gap-2 align-items-center">
+                                    <form action="{{ route('verifikasi.verify', $log) }}" method="POST" class="d-flex flex-column gap-2">
                                         @csrf
-                                        <select name="status" class="form-select form-select-sm w-auto">
-                                            <option value="disetujui">Disetujui</option>
-                                            <option value="ditolak">Ditolak</option>
-                                        </select>
-                                        <button type="submit" class="btn btn-sm btn-primary">
-                                            <i class="bi bi-check-circle me-1"></i> Verifikasi
-                                        </button>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <select name="status" class="form-select form-select-sm w-auto" required>
+                                                <option value="disetujui">Disetujui</option>
+                                                <option value="ditolak">Ditolak</option>
+                                            </select>
+                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                <i class="bi bi-check-circle me-1"></i> Verifikasi
+                                            </button>
+                                        </div>
+                                        <textarea name="komentar" class="form-control form-control-sm" placeholder="Catatan/komentar..." rows="2" required></textarea>
                                     </form>
                                 @else
                                     <span class="text-muted">-</span>

@@ -8,24 +8,21 @@ use Illuminate\Support\Facades\Auth;
 
 class VerifikasiController extends Controller
 {
-  public function index(Request $request)
-{
-    $query = Log::with('user', 'verifier');
+    public function index(Request $request)
+    {
+        $query = Log::with('user', 'verifier');
 
-    if ($request->has('log_id')) {
-        // Jika ada log_id di query parameter, tampilkan hanya log tersebut
-        $query->where('id', $request->log_id);
-    } else {
-        // Tampilkan semua log dari bawahan user yang login
-        $bawahanIds = Auth::user()->bawahan->pluck('id');
-        $query->whereIn('user_id', $bawahanIds);
+        if ($request->has('log_id')) {
+            $query->where('id', $request->log_id);
+        } else {
+            $bawahanIds = Auth::user()->bawahan->pluck('id');
+            $query->whereIn('user_id', $bawahanIds);
+        }
+
+        $logs = $query->latest()->paginate(10);
+
+        return view('verifikasi.index', compact('logs'));
     }
-
-    $logs = $query->latest()->paginate(10);
-
-    return view('verifikasi.index', compact('logs'));
-}
-
 
     public function verify(Request $request, Log $log)
     {
@@ -36,10 +33,12 @@ class VerifikasiController extends Controller
 
         $request->validate([
             'status' => 'required|in:disetujui,ditolak',
+            'komentar' => 'required|string|max:1000',
         ]);
 
         $log->update([
             'status' => $request->status,
+            'komentar_verifikasi' => $request->komentar,
             'verified_by' => Auth::id(),
         ]);
 

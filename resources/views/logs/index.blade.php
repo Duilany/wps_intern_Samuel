@@ -24,19 +24,30 @@
                 <div>
                     <h5 class="fw-semibold text-dark">{{ $log->tanggal->format('d M Y') }}</h5>
                     <p class="mb-2">{{ $log->isi_log }}</p>
-                    <span class="badge bg-{{ 
-                        $log->status === 'pending' ? 'warning' : 
-                        ($log->status === 'disetujui' ? 'success' : 'danger') }}">
-                        {{ ucfirst($log->status) }}
-                    </span>
+
+                    <div class="mb-1">
+                        <span class="badge bg-{{ 
+                            $log->status === 'pending' ? 'warning' : 
+                            ($log->status === 'disetujui' ? 'success' : 'danger') }}">
+                            {{ ucfirst($log->status) }}
+                        </span>
+                    </div>
+
+                    @if($log->status !== 'pending' && $log->komentar_verifikasi)
+                        <div class="text-muted small fst-italic">
+                            💬 <strong>Catatan Manager:</strong> {{ $log->komentar_verifikasi }}
+                        </div>
+                    @endif
+
                     @if($log->bukti)
-                        <span class="ms-2">
+                        <div class="mt-2">
                             <a href="{{ asset('storage/' . $log->bukti) }}" target="_blank" class="text-decoration-underline">
                                 <i class="bi bi-paperclip me-1"></i>Lihat Bukti
                             </a>
-                        </span>
+                        </div>
                     @endif
                 </div>
+
                 @if($log->status === 'pending')
                     <div class="text-end">
                         <a href="{{ route('logs.edit', $log) }}" class="btn btn-sm btn-outline-warning me-2">

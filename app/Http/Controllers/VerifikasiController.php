@@ -25,23 +25,31 @@ class VerifikasiController extends Controller
     }
 
     public function verify(Request $request, Log $log)
-    {
-        $bawahanIds = Auth::user()->bawahan->pluck('id');
-        if (!in_array($log->user_id, $bawahanIds->toArray())) {
-            abort(403, 'Akses ditolak.');
-        }
-
-        $request->validate([
-            'status' => 'required|in:disetujui,ditolak',
-            'komentar' => 'required|string|max:1000',
-        ]);
-
-        $log->update([
-            'status' => $request->status,
-            'komentar_verifikasi' => $request->komentar,
-            'verified_by' => Auth::id(),
-        ]);
-
-        return redirect()->route('verifikasi.index')->with('success', 'Log berhasil diverifikasi.');
+{
+    $bawahanIds = Auth::user()->bawahan->pluck('id');
+    if (!in_array($log->user_id, $bawahanIds->toArray())) {
+        abort(403, 'Akses ditolak.');
     }
+
+    $request->validate([
+        'status' => 'required|in:disetujui,ditolak',
+        'komentar' => 'required|string|max:1000',
+    ]);
+
+    \Log::info('Verifikasi log input:', [
+        'status' => $request->status,
+        'komentar' => $request->komentar,
+    ]);
+
+    $log->update([
+        'status' => $request->status,
+        'komentar_verifikasi' => $request->komentar,
+        'verified_by' => Auth::id(),
+    ]);
+
+    \Log::info('Data log setelah update:', $log->toArray());
+
+    return redirect()->route('verifikasi.index')->with('success', 'Log berhasil diverifikasi.');
+}
+
 }
